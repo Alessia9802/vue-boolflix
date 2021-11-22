@@ -9,7 +9,7 @@
             placeholder="cerca un film"
             v-model="searchString"
           />
-          <button @click="callApi">Cerca</button>
+          <button @click="callMovies, callSeries">Cerca</button>
         </div>
       </nav>
     </div>
@@ -54,18 +54,36 @@ export default {
     return {
       searchString: "",
       movies_url: "https://api.themoviedb.org/3/search/movie",
+      series_url: "https://api.themoviedb.org/3/search/tv",
       api_key: "9753c357316b77220b9816dfee198cf6",
       error: null,
       movies: "",
     };
   },
   methods: {
-    callApi() {
+    callMovies() {
       console.log("cliccato");
       console.log(
         `${this.movies_url}?api_key=${this.api_key}&query=${this.searchString} `
       );
       const full_url = `${this.movies_url}?api_key=${this.api_key}&query=${this.searchString} `;
+      axios
+        .get(full_url)
+        .then((resp) => {
+          console.log(resp);
+          this.movies = resp.data.results;
+        })
+        .catch((error) => {
+          console.log(error);
+          this.error = error;
+        });
+    },
+    callSeries() {
+      console.log("cliccato");
+      console.log(
+        `${this.series_url}?api_key=${this.api_key}&query=${this.searchString} `
+      );
+      const full_url = `${this.series_url}?api_key=${this.api_key}&query=${this.searchString} `;
       axios
         .get(full_url)
         .then((resp) => {
