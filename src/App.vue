@@ -29,7 +29,12 @@
               :src="'https://image.tmdb.org/t/p/w342' + movie.poster_path"
               alt=""
             />
-            <img src="" alt="" v-else />
+
+            <img
+              :src="'https://image.tmdb.org/t/p/w342' + movie.poster_path"
+              alt=""
+              v-else
+            />
           </div>
           <!-- original_title -->
           <div class="original_title">
@@ -62,11 +67,15 @@
           </div>
           <div class="poster">
             <img
-              v-if="!serie.poster_path === null"
+              v-if="serie.poster_path === null"
               :src="'https://image.tmdb.org/t/p/w342' + serie.poster_path"
               alt=""
             />
-            <img src="" alt="" v-else />
+            <img
+              :src="'https://image.tmdb.org/t/p/w342' + serie.poster_path"
+              alt=""
+              v-else
+            />
           </div>
           <!-- original_title -->
           <div class="original_name">
