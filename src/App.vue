@@ -3,6 +3,7 @@
     <div id="site_header">
       <!-- navigation bar -->
       <nav>
+        <img class="logo" src="./assets/Netflix_logo.png" alt="" />
         <div class="search_box">
           <input
             type="text"
@@ -65,7 +66,15 @@
             {{ serie.original_name }}
           </div>
           <!-- language -->
-          <div class="original_language">
+          <div
+            class="original_language"
+            v-if="serie.original_language === 'en'"
+          >
+            {{ serie.original_language }}
+
+            <country-flag :country="gb - ita" size=" normal " />
+          </div>
+          <div v-else>
             {{ serie.original_language }}
             <country-flag :country="serie.original_language" size="normal" />
           </div>
@@ -148,7 +157,24 @@ export default {
 
 <style lang="scss">
 @import "./assets/scss/common.scss";
+nav {
+  background-color: black;
+  height: 100px;
+  display: flex;
+  align-items: center;
+}
 .search_box {
   padding: 1rem;
+}
+
+.logo {
+  width: 150px;
+  height: 45px;
+  margin: 20px 10px;
+}
+
+#site_main {
+  background-color: rgb(31, 31, 31);
+  color: white;
 }
 </style>
