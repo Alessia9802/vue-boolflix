@@ -36,7 +36,14 @@
             {{ movie.original_title }}
           </div>
           <!-- language -->
-          <div class="original_language">
+          <div
+            class="original_language"
+            v-if="movie.original_language === 'en'"
+          >
+            {{ movie.original_language }}
+            <country-flag country="gb - ita" size=" normal " />
+          </div>
+          <div v-else>
             {{ movie.original_language }}
             <country-flag :country="movie.original_language" size="normal" />
           </div>
