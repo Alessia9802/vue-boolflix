@@ -23,7 +23,12 @@
             <h1>{{ movie.title }}</h1>
           </div>
           <div class="locandina">
-            <img :src="movie.poster_path" alt="" />
+            <img
+              v-if="!movie.poster_path === null"
+              :src="'https://image.tmdb.org/t/p/w342' + movie.poster_path"
+              alt=""
+            />
+            <img src="" alt="" v-else />
           </div>
           <!-- original_title -->
           <div class="original_title">
@@ -48,7 +53,12 @@
             <h1>{{ serie.name }}</h1>
           </div>
           <div class="poster">
-            <img :src="serie.backdrop_path" alt="" />
+            <img
+              v-if="!serie.poster_path === null"
+              :src="'https://image.tmdb.org/t/p/w342' + serie.poster_path"
+              alt=""
+            />
+            <img src="" alt="" v-else />
           </div>
           <!-- original_title -->
           <div class="original_name">
@@ -86,7 +96,7 @@ export default {
       searchString: "",
       movies_url: "https://api.themoviedb.org/3/search/movie",
       series_url: "https://api.themoviedb.org/3/search/tv",
-      image_url: "https://image.tmdb.org/t/p/",
+      //image_url: "https://image.tmdb.org/t/p/342",
       api_key: "9753c357316b77220b9816dfee198cf6",
       error: null,
       movies: "",
@@ -97,7 +107,7 @@ export default {
   },
   methods: {
     callMovies() {
-      console.log("cliccato");
+      /* console.log("cliccato");
       console.log(
         `${this.movies_url}?api_key=${this.api_key}&query=${this.searchString} `
       );
@@ -106,10 +116,10 @@ export default {
       );
       console.log(
         `${this.image_url}?api_key=${this.api_key}&query=${this.searchString} `
-      );
+      ); */
       const full_url = `${this.movies_url}?api_key=${this.api_key}&query=${this.searchString} `;
       const full_url_series = `${this.series_url}?api_key=${this.api_key}&query=${this.searchString} `;
-      const poster_url = `${this.image_url}?api_key=${this.api_key}&query=${this.searchString} `;
+      //const poster_url = `${this.image_url}?api_key=${this.api_key}&query=${this.searchString} `;
       axios
         .get(full_url)
         .then((resp) => {
@@ -125,16 +135,6 @@ export default {
         .then((resp) => {
           console.log(resp);
           this.series = resp.data.results;
-        })
-        .catch((error) => {
-          console.log(error);
-          this.error = error;
-        });
-      axios
-        .get(poster_url)
-        .then((resp) => {
-          console.log(resp);
-          this.images = resp.data.results;
         })
         .catch((error) => {
           console.log(error);
