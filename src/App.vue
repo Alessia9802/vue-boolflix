@@ -23,7 +23,7 @@
             <h1>{{ movie.title }}</h1>
           </div>
           <div class="locandina">
-            <img :src="movie.backdrop_path" alt="" />
+            <img :src="movie.poster_path" alt="" />
           </div>
           <!-- original_title -->
           <div class="original_title">
@@ -32,6 +32,7 @@
           <!-- language -->
           <div class="original_language">
             {{ movie.original_language }}
+            <country-flag :country="movie.original_language" size="normal" />
           </div>
           <!-- Vote -->
           <div class="vote_average">
@@ -56,6 +57,7 @@
           <!-- language -->
           <div class="original_language">
             {{ serie.original_language }}
+            <country-flag :country="serie.original_language" size="normal" />
           </div>
           <!-- Vote -->
           <div class="vote_average">
@@ -72,6 +74,7 @@
 
 <script>
 import axios from "axios";
+import CountryFlag from "vue-country-flag";
 //import Siteheader from "./components/Siteheader.vue";
 //import Sitemain from "./components/Sitemain.vue";
 //import Sitefooter from "./components/Sitefooter.vue";
@@ -83,10 +86,13 @@ export default {
       searchString: "",
       movies_url: "https://api.themoviedb.org/3/search/movie",
       series_url: "https://api.themoviedb.org/3/search/tv",
+      image_url: "https://image.tmdb.org/t/p/",
       api_key: "9753c357316b77220b9816dfee198cf6",
       error: null,
       movies: "",
       series: "",
+      images: "",
+      country: ["it", "en", "de", "fr"],
     };
   },
   methods: {
@@ -98,8 +104,12 @@ export default {
       console.log(
         `${this.series_url}?api_key=${this.api_key}&query=${this.searchString} `
       );
+      console.log(
+        `${this.image_url}?api_key=${this.api_key}&query=${this.searchString} `
+      );
       const full_url = `${this.movies_url}?api_key=${this.api_key}&query=${this.searchString} `;
       const full_url_series = `${this.series_url}?api_key=${this.api_key}&query=${this.searchString} `;
+      const poster_url = `${this.image_url}?api_key=${this.api_key}&query=${this.searchString} `;
       axios
         .get(full_url)
         .then((resp) => {
@@ -120,9 +130,19 @@ export default {
           console.log(error);
           this.error = error;
         });
+      axios
+        .get(poster_url)
+        .then((resp) => {
+          console.log(resp);
+          this.images = resp.data.results;
+        })
+        .catch((error) => {
+          console.log(error);
+          this.error = error;
+        });
     },
   },
-  components: {},
+  components: { CountryFlag },
 };
 </script>
 
