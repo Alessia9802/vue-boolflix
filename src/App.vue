@@ -72,7 +72,7 @@
           >
             {{ serie.original_language }}
 
-            <country-flag :country="gb - ita" size=" normal " />
+            <country-flag country="gb - ita" size=" normal " />
           </div>
           <div v-else>
             {{ serie.original_language }}
