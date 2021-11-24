@@ -102,8 +102,12 @@
             <country-flag :country="serie.original_language" size="normal" />
           </div>
           <!-- Vote -->
-          <div class="vote_average">
+          <div
+            class="vote_average"
+            v-for="index in Math.floor{{serie.vote_average }} "
+          >
             {{ serie.vote_average }}
+            <font-awesome-icon :icon="['fas', 'star']" />
           </div>
         </div>
       </div>
@@ -137,7 +141,6 @@ export default {
       series: "",
       images: "",
       country: ["it", "en", "de", "fr"],
-      votes: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     };
   },
   mounted() {
@@ -202,10 +205,6 @@ export default {
           console.log(error);
           this.error = error;
         });
-    },
-    voteAverage() {
-      let vote = [Math.floor(Math.random() * 11) / 2];
-      console.log(vote);
     },
   },
   components: { CountryFlag },
