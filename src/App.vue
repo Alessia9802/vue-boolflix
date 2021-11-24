@@ -137,7 +137,7 @@ export default {
       series: "",
       images: "",
       country: ["it", "en", "de", "fr"],
-      votes: [1, 2, 3, 4, 5],
+      votes: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     };
   },
   mounted() {
@@ -202,6 +202,10 @@ export default {
           console.log(error);
           this.error = error;
         });
+    },
+    voteAverage() {
+      let vote = [Math.floor(Math.random() * 11) / 2];
+      console.log(vote);
     },
   },
   components: { CountryFlag },
