@@ -3,7 +3,16 @@
     <div id="site_header">
       <!-- navigation bar -->
       <nav>
-        <img class="logo" src="./assets/Netflix_logo.png" alt="" />
+        <h1 class="heading">BoolFlix</h1>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Serie TV</a></li>
+          <li><a href="#">Film</a></li>
+          <li><a href="#">Originali</a></li>
+          <li><a href="#">Aggiunti di recente</a></li>
+          <li><a href="#">La mia lista</a></li>
+        </ul>
+
         <div class="search_box">
           <input
             type="text"
@@ -11,6 +20,10 @@
             v-model="searchString"
           />
           <button @click="callMovies">Cerca</button>
+        </div>
+        <div class="notifiche">
+          <i class="fas fa-bell fa-lg"></i>
+          <i class="fas fa-user fa-lg"></i>
         </div>
       </nav>
     </div>
@@ -98,7 +111,7 @@
 
                 <country-flag country="gb - ita" size=" normal " />
               </div>
-              <div v-else>
+              <div class="original_language" v-else>
                 Lingua:
                 <country-flag
                   :country="serie.original_language"
@@ -243,20 +256,49 @@ export default {
 
 <style lang="scss">
 @import "./assets/scss/common.scss";
+
+nav ul > li a {
+  text-decoration: none;
+  color: white;
+  padding-left: 1.5rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  padding: 1rem;
+}
+
 nav {
   background-color: black;
   height: 100px;
   display: flex;
   align-items: center;
+  justify-content: space-around;
 }
+
+nav input {
+  width: 200px;
+  padding: 5px;
+  border-radius: 50px;
+  border: none;
+}
+
 .search_box {
   padding: 1rem;
 }
 
-.logo {
-  width: 150px;
-  height: 45px;
-  margin: 20px 10px;
+.notifiche {
+  color: white;
+}
+
+.notifiche i {
+  padding: 0.5rem;
+}
+
+.heading {
+  color: red;
+  font-size: 30px;
 }
 
 #site_main {
@@ -268,6 +310,17 @@ nav {
 h1 {
   text-align: center;
   padding: 1rem;
+}
+
+button {
+  width: 70px;
+  padding: 5px;
+  border-radius: 20px;
+  border: none;
+  margin-left: 5px;
+  background-color: rgb(71 57 59);
+  color: rgb(255 255 255);
+  cursor: pointer;
 }
 
 .movies .poster,
