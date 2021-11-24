@@ -16,21 +16,24 @@
     </div>
     <!-- site_header -->
     <div id="site_main">
+      <h1>Film</h1>
+      <p>Dalla A alla Z</p>
       <div class="movies">
-        <h1>Film</h1>
         <div class="movie" v-for="movie in movies" :key="movie.id">
           <!-- title -->
           <div class="title">
-            <h1>{{ movie.title }}</h1>
+            <h5>{{ movie.title }}</h5>
           </div>
           <div class="locandina">
             <img
+              class="poster"
               v-if="!movie.poster_path === null"
               :src="'https://image.tmdb.org/t/p/w342' + movie.poster_path"
               alt=""
             />
 
             <img
+              class="poster"
               :src="'https://image.tmdb.org/t/p/w342' + movie.poster_path"
               alt=""
               v-else
@@ -58,20 +61,24 @@
           </div>
         </div>
       </div>
+      <hr />
+      <h1>Serie tv</h1>
+      <p>Dalla A alla Z</p>
       <div class="series_tv">
-        <h1>Serie tv</h1>
         <div class="tv" v-for="serie in series" :key="serie.id">
           <!-- title -->
           <div class="name">
-            <h1>{{ serie.name }}</h1>
+            <h5>{{ serie.name }}</h5>
           </div>
-          <div class="poster">
+          <div class="locandina">
             <img
+              class="poster"
               v-if="serie.poster_path === null"
               :src="'https://image.tmdb.org/t/p/w342' + serie.poster_path"
               alt=""
             />
             <img
+              class="poster"
               :src="'https://image.tmdb.org/t/p/w342' + serie.poster_path"
               alt=""
               v-else
@@ -130,7 +137,35 @@ export default {
       series: "",
       images: "",
       country: ["it", "en", "de", "fr"],
+      votes: [1, 2, 3, 4, 5],
     };
+  },
+  mounted() {
+    //Schermata di anteprima
+    axios
+      .get(
+        "https://api.themoviedb.org/3/search/movie?api_key=9753c357316b77220b9816dfee198cf6&language=it-IT&query=a&page=1&include_adult=false"
+      )
+      .then((resp) => {
+        console.log(resp);
+        this.movies = resp.data.results;
+      })
+      .catch((error) => {
+        console.log(error);
+        this.error = error;
+      });
+    axios
+      .get(
+        "https://api.themoviedb.org/3/search/tv?api_key=9753c357316b77220b9816dfee198cf6&language=it-IT&query=a&page=1"
+      )
+      .then((resp) => {
+        console.log(resp);
+        this.series = resp.data.results;
+      })
+      .catch((error) => {
+        console.log(error);
+        this.error = error;
+      });
   },
   methods: {
     callMovies() {
@@ -194,5 +229,20 @@ nav {
 #site_main {
   background-color: rgb(31, 31, 31);
   color: white;
+}
+
+.movies,
+.series_tv {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.movies .locandina > .poster {
+  width: 200px;
+  padding: 0.5rem;
+}
+.series_tv .locandina > .poster {
+  width: 200px;
+  padding: 0.5rem;
 }
 </style>
