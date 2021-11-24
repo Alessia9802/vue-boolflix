@@ -20,10 +20,6 @@
       <p>Dalla A alla Z</p>
       <div class="movies">
         <div class="movie" v-for="movie in movies" :key="movie.id">
-          <!-- title -->
-          <div class="title">
-            <h5>{{ movie.title }}</h5>
-          </div>
           <div class="locandina">
             <img
               class="poster"
@@ -38,37 +34,41 @@
               alt=""
               v-else
             />
-          </div>
-          <!-- original_title -->
-          <div class="original_title">
-            {{ movie.original_title }}
-          </div>
-          <!-- language -->
-          <div
-            class="original_language"
-            v-if="movie.original_language === 'en'"
-          >
-            {{ movie.original_language }}
-            <country-flag country="gb - ita" size=" normal " />
-          </div>
-          <div v-else>
-            {{ movie.original_language }}
-            <country-flag :country="movie.original_language" size="normal" />
-          </div>
-          <!-- Vote -->
-          <div
-            class="vote_average"
-            v-for="index in Math.floor(movie.vote_average / 2)"
-            :key="index"
-          >
-            <font-awesome-icon :icon="['fas', 'star']" />
-          </div>
-          <div
-            class="vote_average_empty"
-            v-for="index in 5 - Math.floor(movie.vote_average / 2)"
-            :key="index"
-          >
-            <i class="far fa-star"></i>
+            <!-- original_title -->
+            <div class="original_title">
+              {{ movie.original_title }}
+            </div>
+            <!-- language -->
+            <div
+              class="original_language"
+              v-if="movie.original_language === 'en'"
+            >
+              {{ movie.original_language }}
+              <country-flag country="gb - ita" size=" normal " />
+            </div>
+            <div class="original_language" v-else>
+              {{ movie.original_language }}
+              <country-flag :country="movie.original_language" size="normal" />
+            </div>
+            <!-- Overview -->
+            <div class="overview">
+              {{ movie.overview }}
+            </div>
+            <!-- Vote -->
+            <div
+              class="vote_average"
+              v-for="index in Math.floor(movie.vote_average / 2)"
+              :key="index"
+            >
+              <font-awesome-icon :icon="['fas', 'star']" />
+            </div>
+            <div
+              class="vote_average_empty"
+              v-for="index in 5 - Math.floor(movie.vote_average / 2)"
+              :key="index"
+            >
+              <i class="far fa-star"></i>
+            </div>
           </div>
         </div>
       </div>
@@ -250,21 +250,40 @@ nav {
   color: white;
 }
 
-.movies,
-.series_tv {
-  display: flex;
-  flex-wrap: wrap;
-}
-
 .movies .locandina > .poster {
   width: 200px;
   padding: 0.5rem;
 }
+
+.movies {
+  display: flex;
+  overflow-x: scroll;
+  width: 1400px;
+}
+
+.movies .locandina {
+  width: 200px;
+  height: 300px;
+}
+
 .series_tv .locandina > .poster {
   width: 200px;
   padding: 0.5rem;
 }
-.vote_average {
-  display: flex;
+
+.series_tv .locandina > .poster:hover {
+  background-color: rgba(0, 0, 0, 0.397);
 }
+.movie img:hover {
+  background-color: black;
+  width: 200px;
+}
+
+/* .original_title,
+.original_language,
+.overview,
+.vote_average_empty,
+.vote_average {
+  display: none;
+} */
 </style>
