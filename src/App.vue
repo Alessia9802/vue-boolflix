@@ -56,8 +56,19 @@
             <country-flag :country="movie.original_language" size="normal" />
           </div>
           <!-- Vote -->
-          <div class="vote_average">
-            {{ movie.vote_average }}
+          <div
+            class="vote_average"
+            v-for="index in Math.floor(movie.vote_average)"
+            :key="index"
+          >
+            <font-awesome-icon :icon="['fas', 'star']" />
+          </div>
+          <div
+            class="vote_average_empty"
+            v-for="index in 5 - Math.floor(movie.vote_average)"
+            :key="index"
+          >
+            <font-awesome-icon :icon="['far', 'circle']" />
           </div>
         </div>
       </div>
@@ -104,18 +115,16 @@
           <!-- Vote -->
           <div
             class="vote_average"
-            v-for="index in Math.floor{{serie.vote_average }} "
+            v-for="index in Math.floor(serie.vote_average)"
+            :key="index"
           >
-            {{ serie.vote_average }}
             <font-awesome-icon :icon="['fas', 'star']" />
           </div>
         </div>
       </div>
     </div>
     <!-- site_main -->
-    <div id="site_footer">
-      <font-awesome-icon :icon="['fas', 'star']" />
-    </div>
+    <div id="site_footer"></div>
     <!-- site_footer -->
   </div>
 </template>
@@ -247,5 +256,8 @@ nav {
 .series_tv .locandina > .poster {
   width: 200px;
   padding: 0.5rem;
+}
+.vote_average {
+  display: flex;
 }
 </style>
