@@ -58,7 +58,7 @@
           <!-- Vote -->
           <div
             class="vote_average"
-            v-for="index in Math.floor(movie.vote_average)"
+            v-for="index in [Math.floor(movie.vote_average) / 2]"
             :key="index"
           >
             <font-awesome-icon :icon="['fas', 'star']" />
