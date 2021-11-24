@@ -58,17 +58,17 @@
           <!-- Vote -->
           <div
             class="vote_average"
-            v-for="index in [Math.floor(movie.vote_average) / 2]"
+            v-for="index in Math.floor(movie.vote_average / 2)"
             :key="index"
           >
             <font-awesome-icon :icon="['fas', 'star']" />
           </div>
           <div
             class="vote_average_empty"
-            v-for="index in 5 - Math.floor(movie.vote_average)"
+            v-for="index in 5 - Math.floor(movie.vote_average / 2)"
             :key="index"
           >
-            <font-awesome-icon :icon="['far', 'circle']" />
+            <i class="far fa-star"></i>
           </div>
         </div>
       </div>
@@ -115,10 +115,17 @@
           <!-- Vote -->
           <div
             class="vote_average"
-            v-for="index in Math.floor(serie.vote_average)"
+            v-for="index in Math.floor(serie.vote_average / 2)"
             :key="index"
           >
             <font-awesome-icon :icon="['fas', 'star']" />
+          </div>
+          <div
+            class="vote_average_empty"
+            v-for="index in 5 - Math.floor(serie.vote_average / 2)"
+            :key="index"
+          >
+            <i class="far fa-star"></i>
           </div>
         </div>
       </div>
