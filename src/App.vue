@@ -17,7 +17,6 @@
     <!-- site_header -->
     <div id="site_main">
       <h1>Film</h1>
-      <p>Dalla A alla Z</p>
       <div class="movies">
         <div class="movie" v-for="movie in movies" :key="movie.id">
           <div class="locandina">
@@ -82,10 +81,53 @@
       </div>
 
       <h1>Serie tv</h1>
-      <p>Dalla A alla Z</p>
       <div class="series_tv">
         <div class="tv" v-for="serie in series" :key="serie.id">
           <div class="locandina">
+            <div class="contenuto">
+              <!-- original_title -->
+              <div class="original_name">
+                <h3>{{ serie.original_name }}</h3>
+              </div>
+              <!-- language -->
+              <div
+                class="original_language"
+                v-if="serie.original_language === 'en'"
+              >
+                Lingua:
+
+                <country-flag country="gb - ita" size=" normal " />
+              </div>
+              <div v-else>
+                Lingua:
+                <country-flag
+                  :country="serie.original_language"
+                  size="normal"
+                />
+              </div>
+              <!-- Overview -->
+              <div class="overview">
+                {{ serie.overview }}
+              </div>
+              <!-- Vote -->
+              <div class="vote">
+                <p class="vote_text">Voto:</p>
+                <div
+                  class="vote_average"
+                  v-for="index in Math.floor(serie.vote_average / 2)"
+                  :key="index"
+                >
+                  <font-awesome-icon :icon="['fas', 'star']" />
+                </div>
+                <div
+                  class="vote_average_empty"
+                  v-for="index in 5 - Math.floor(serie.vote_average / 2)"
+                  :key="index"
+                >
+                  <i class="far fa-star"></i>
+                </div>
+              </div>
+            </div>
             <img
               class="poster"
               v-if="serie.poster_path === null"
@@ -98,38 +140,6 @@
               alt=""
               v-else
             />
-          </div>
-          <!-- original_title -->
-          <div class="original_name">
-            <h3>{{ serie.original_name }}</h3>
-          </div>
-          <!-- language -->
-          <div
-            class="original_language"
-            v-if="serie.original_language === 'en'"
-          >
-            {{ serie.original_language }}
-
-            <country-flag country="gb - ita" size=" normal " />
-          </div>
-          <div v-else>
-            {{ serie.original_language }}
-            <country-flag :country="serie.original_language" size="normal" />
-          </div>
-          <!-- Vote -->
-          <div
-            class="vote_average"
-            v-for="index in Math.floor(serie.vote_average / 2)"
-            :key="index"
-          >
-            <font-awesome-icon :icon="['fas', 'star']" />
-          </div>
-          <div
-            class="vote_average_empty"
-            v-for="index in 5 - Math.floor(serie.vote_average / 2)"
-            :key="index"
-          >
-            <i class="far fa-star"></i>
           </div>
         </div>
       </div>
@@ -252,13 +262,21 @@ nav {
 #site_main {
   background-color: rgb(31, 31, 31);
   color: white;
+  height: 850px;
 }
 
-.movies .poster {
+h1 {
+  text-align: center;
+  padding: 1rem;
+}
+
+.movies .poster,
+.series_tv .poster {
   width: 200px;
 }
 
-.movies .contenuto {
+.movies .contenuto,
+.series_tv .contenuto {
   padding: 15px;
   z-index: 1;
   position: absolute;
@@ -269,11 +287,13 @@ nav {
   visibility: hidden;
 }
 
-.movie:hover .contenuto {
+.movie:hover .contenuto,
+.tv:hover .contenuto {
   visibility: visible;
 }
 
-.movies {
+.movies,
+.series_tv {
   display: flex;
   //flex-wrap: wrap;
   overflow-x: scroll;
@@ -281,7 +301,8 @@ nav {
   margin-left: 3rem;
 }
 
-.movies .locandina {
+.movies .locandina,
+.series_tv .locandina {
   width: 200px;
   height: 300px;
   position: relative;
@@ -289,14 +310,10 @@ nav {
   margin: 10px;
 }
 
-.series_tv .locandina > .poster {
+/* .series_tv .locandina > .poster {
   width: 200px;
-  padding: 0.5rem;
-}
-
-.series_tv .locandina > .poster:hover {
-  background-color: rgba(0, 0, 0, 0.397);
-}
+  //padding: 0.5rem;
+} */
 
 .overview {
   font-size: 12px;
