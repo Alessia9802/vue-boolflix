@@ -102,7 +102,9 @@
       </div>
     </div>
     <!-- site_main -->
-    <div id="site_footer"></div>
+    <div id="site_footer">
+      <font-awesome-icon :icon="['fas', 'star']" />
+    </div>
     <!-- site_footer -->
   </div>
 </template>
