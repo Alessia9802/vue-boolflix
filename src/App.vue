@@ -21,6 +21,49 @@
       <div class="movies">
         <div class="movie" v-for="movie in movies" :key="movie.id">
           <div class="locandina">
+            <div class="contenuto">
+              <!-- original_title -->
+              <div class="original_title">
+                <h3>{{ movie.original_title }}</h3>
+              </div>
+              <!-- language -->
+              <div
+                class="original_language"
+                v-if="movie.original_language === 'en'"
+              >
+                Lingua:
+                <country-flag country="gb - ita" size=" normal " />
+              </div>
+              <div class="original_language" v-else>
+                Lingua:
+                <country-flag
+                  :country="movie.original_language"
+                  size="normal"
+                />
+              </div>
+              <!-- Overview -->
+              <div class="overview">
+                {{ movie.overview }}
+              </div>
+              <!-- Vote -->
+              <div class="vote">
+                <p class="vote_text">Voto:</p>
+                <div
+                  class="vote_average"
+                  v-for="index in Math.floor(movie.vote_average / 2)"
+                  :key="index"
+                >
+                  <font-awesome-icon :icon="['fas', 'star']" />
+                </div>
+                <div
+                  class="vote_average_empty"
+                  v-for="index in 5 - Math.floor(movie.vote_average / 2)"
+                  :key="index"
+                >
+                  <i class="far fa-star"></i>
+                </div>
+              </div>
+            </div>
             <img
               class="poster"
               v-if="!movie.poster_path === null"
@@ -34,53 +77,14 @@
               alt=""
               v-else
             />
-            <!-- original_title -->
-            <div class="original_title">
-              {{ movie.original_title }}
-            </div>
-            <!-- language -->
-            <div
-              class="original_language"
-              v-if="movie.original_language === 'en'"
-            >
-              {{ movie.original_language }}
-              <country-flag country="gb - ita" size=" normal " />
-            </div>
-            <div class="original_language" v-else>
-              {{ movie.original_language }}
-              <country-flag :country="movie.original_language" size="normal" />
-            </div>
-            <!-- Overview -->
-            <div class="overview">
-              {{ movie.overview }}
-            </div>
-            <!-- Vote -->
-            <div
-              class="vote_average"
-              v-for="index in Math.floor(movie.vote_average / 2)"
-              :key="index"
-            >
-              <font-awesome-icon :icon="['fas', 'star']" />
-            </div>
-            <div
-              class="vote_average_empty"
-              v-for="index in 5 - Math.floor(movie.vote_average / 2)"
-              :key="index"
-            >
-              <i class="far fa-star"></i>
-            </div>
           </div>
         </div>
       </div>
-      <hr />
+
       <h1>Serie tv</h1>
       <p>Dalla A alla Z</p>
       <div class="series_tv">
         <div class="tv" v-for="serie in series" :key="serie.id">
-          <!-- title -->
-          <div class="name">
-            <h5>{{ serie.name }}</h5>
-          </div>
           <div class="locandina">
             <img
               class="poster"
@@ -97,7 +101,7 @@
           </div>
           <!-- original_title -->
           <div class="original_name">
-            {{ serie.original_name }}
+            <h3>{{ serie.original_name }}</h3>
           </div>
           <!-- language -->
           <div
@@ -250,20 +254,39 @@ nav {
   color: white;
 }
 
-.movies .locandina > .poster {
+.movies .poster {
   width: 200px;
-  padding: 0.5rem;
+}
+
+.movies .contenuto {
+  padding: 15px;
+  z-index: 1;
+  position: absolute;
+  overflow-y: scroll;
+  width: 200px;
+  height: 300px;
+  background-color: rgba(0, 0, 0, 0.726);
+  visibility: hidden;
+}
+
+.movie:hover .contenuto {
+  visibility: visible;
 }
 
 .movies {
   display: flex;
+  //flex-wrap: wrap;
   overflow-x: scroll;
   width: 1400px;
+  margin-left: 3rem;
 }
 
 .movies .locandina {
   width: 200px;
   height: 300px;
+  position: relative;
+  z-index: 0;
+  margin: 10px;
 }
 
 .series_tv .locandina > .poster {
@@ -274,9 +297,23 @@ nav {
 .series_tv .locandina > .poster:hover {
   background-color: rgba(0, 0, 0, 0.397);
 }
-.movie img:hover {
-  background-color: black;
-  width: 200px;
+
+.overview {
+  font-size: 12px;
+  padding-bottom: 10px;
+}
+
+.original_language {
+  display: flex;
+  align-items: center;
+}
+
+.vote {
+  display: flex;
+  color: rgb(255, 217, 0);
+}
+.vote_text {
+  color: white;
 }
 
 /* .original_title,
@@ -286,4 +323,23 @@ nav {
 .vote_average {
   display: none;
 } */
+
+//scrollbar
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 20px white;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(204, 7, 7);
+  border-radius: 10px;
+}
 </style>
